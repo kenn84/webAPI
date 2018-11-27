@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mHealthDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="height" Type="int" Nullable="false" />
+          <Property Name="birthdate" Type="datetime" Nullable="false" />
+          <Property Name="weight" Type="int" Nullable="false" />
+          <Property Name="gender" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="clientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Dizziness">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="level" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Exercise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="clientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cpr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="salt" Type="varchar(max)" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="diaryId" Type="int" />
+        </EntityType>
+        <EntityType Name="PageExercise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pageId" Type="int" />
+          <Property Name="exerciseId" Type="int" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Diary__clientId__5812160E">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dizziness__clien__5535A963">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dizziness">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exercise__client__5AEE82B9">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login__clientId__4F7CD00D">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Page__diaryId__6477ECF3">
+          <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diary">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="diaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageExerc__exerc__6B24EA82">
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="0..1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="exerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageExerc__pageI__6A30C649">
+          <End Role="Page" Type="Self.Page" Multiplicity="0..1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="pageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Step__clientId__52593CB8">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Step" Type="Self.Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Step">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mHealthDatabaseModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diary" EntityType="Self.Diary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dizziness" EntityType="Self.Dizziness" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exercise" EntityType="Self.Exercise" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageExercise" EntityType="Self.PageExercise" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step" EntityType="Self.Step" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Diary__clientId__5812160E" Association="Self.FK__Diary__clientId__5812160E">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Diary" EntitySet="Diary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dizziness__clien__5535A963" Association="Self.FK__Dizziness__clien__5535A963">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Dizziness" EntitySet="Dizziness" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exercise__client__5AEE82B9" Association="Self.FK__Exercise__client__5AEE82B9">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login__clientId__4F7CD00D" Association="Self.FK__Login__clientId__4F7CD00D">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Page__diaryId__6477ECF3" Association="Self.FK__Page__diaryId__6477ECF3">
+            <End Role="Diary" EntitySet="Diary" />
+            <End Role="Page" EntitySet="Page" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageExerc__exerc__6B24EA82" Association="Self.FK__PageExerc__exerc__6B24EA82">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="PageExercise" EntitySet="PageExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageExerc__pageI__6A30C649" Association="Self.FK__PageExerc__pageI__6A30C649">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="PageExercise" EntitySet="PageExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Step__clientId__52593CB8" Association="Self.FK__Step__clientId__52593CB8">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Step" EntitySet="Step" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mHealthDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="height" Type="Int32" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="weight" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Diaries" Relationship="Self.FK__Diary__clientId__5812160E" FromRole="Client" ToRole="Diary" />
+          <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__clien__5535A963" FromRole="Client" ToRole="Dizziness" />
+          <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__client__5AEE82B9" FromRole="Client" ToRole="Exercise" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK__Login__clientId__4F7CD00D" FromRole="Client" ToRole="Login" />
+          <NavigationProperty Name="Steps" Relationship="Self.FK__Step__clientId__52593CB8" FromRole="Client" ToRole="Step" />
+        </EntityType>
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="clientId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Diary__clientId__5812160E" FromRole="Diary" ToRole="Client" />
+          <NavigationProperty Name="Pages" Relationship="Self.FK__Page__diaryId__6477ECF3" FromRole="Diary" ToRole="Page" />
+        </EntityType>
+        <EntityType Name="Dizziness">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <Property Name="clientId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Dizziness__clien__5535A963" FromRole="Dizziness" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Exercise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clientId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Exercise__client__5AEE82B9" FromRole="Exercise" ToRole="Client" />
+          <NavigationProperty Name="PageExercises" Relationship="Self.FK__PageExerc__exerc__6B24EA82" FromRole="Exercise" ToRole="PageExercise" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cpr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Login__clientId__4F7CD00D" FromRole="Login" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="title" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="diaryId" Type="Int32" />
+          <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__6477ECF3" FromRole="Page" ToRole="Diary" />
+          <NavigationProperty Name="PageExercises" Relationship="Self.FK__PageExerc__pageI__6A30C649" FromRole="Page" ToRole="PageExercise" />
+        </EntityType>
+        <EntityType Name="PageExercise">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pageId" Type="Int32" />
+          <Property Name="exerciseId" Type="Int32" />
+          <NavigationProperty Name="Exercise" Relationship="Self.FK__PageExerc__exerc__6B24EA82" FromRole="PageExercise" ToRole="Exercise" />
+          <NavigationProperty Name="Page" Relationship="Self.FK__PageExerc__pageI__6A30C649" FromRole="PageExercise" ToRole="Page" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Step__clientId__52593CB8" FromRole="Step" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK__Diary__clientId__5812160E">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dizziness__clien__5535A963">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dizziness">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exercise__client__5AEE82B9">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login__clientId__4F7CD00D">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Step__clientId__52593CB8">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Step" Type="Self.Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Step">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Page__diaryId__6477ECF3">
+          <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diary">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Page">
+              <PropertyRef Name="diaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageExerc__exerc__6B24EA82">
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="0..1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="exerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageExerc__pageI__6A30C649">
+          <End Role="Page" Type="Self.Page" Multiplicity="0..1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="pageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mHealthDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Diaries" EntityType="Self.Diary" />
+          <EntitySet Name="Dizzinesses" EntityType="Self.Dizziness" />
+          <EntitySet Name="Exercises" EntityType="Self.Exercise" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Pages" EntityType="Self.Page" />
+          <EntitySet Name="PageExercises" EntityType="Self.PageExercise" />
+          <EntitySet Name="Steps" EntityType="Self.Step" />
+          <AssociationSet Name="FK__Diary__clientId__5812160E" Association="Self.FK__Diary__clientId__5812160E">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Diary" EntitySet="Diaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dizziness__clien__5535A963" Association="Self.FK__Dizziness__clien__5535A963">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Dizziness" EntitySet="Dizzinesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exercise__client__5AEE82B9" Association="Self.FK__Exercise__client__5AEE82B9">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Exercise" EntitySet="Exercises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login__clientId__4F7CD00D" Association="Self.FK__Login__clientId__4F7CD00D">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Login" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Step__clientId__52593CB8" Association="Self.FK__Step__clientId__52593CB8">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Step" EntitySet="Steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Page__diaryId__6477ECF3" Association="Self.FK__Page__diaryId__6477ECF3">
+            <End Role="Diary" EntitySet="Diaries" />
+            <End Role="Page" EntitySet="Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageExerc__exerc__6B24EA82" Association="Self.FK__PageExerc__exerc__6B24EA82">
+            <End Role="Exercise" EntitySet="Exercises" />
+            <End Role="PageExercise" EntitySet="PageExercises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageExerc__pageI__6A30C649" Association="Self.FK__PageExerc__pageI__6A30C649">
+            <End Role="Page" EntitySet="Pages" />
+            <End Role="PageExercise" EntitySet="PageExercises" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mHealthDatabaseModelStoreContainer" CdmEntityContainer="mHealthDatabaseEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diaries">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Diary">
+              <MappingFragment StoreEntitySet="Diary">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dizzinesses">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Dizziness">
+              <MappingFragment StoreEntitySet="Dizziness">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exercises">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Exercise">
+              <MappingFragment StoreEntitySet="Exercise">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cpr" ColumnName="cpr" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Page">
+              <MappingFragment StoreEntitySet="Page">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="diaryId" ColumnName="diaryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageExercises">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.PageExercise">
+              <MappingFragment StoreEntitySet="PageExercise">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pageId" ColumnName="pageId" />
+                <ScalarProperty Name="exerciseId" ColumnName="exerciseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Steps">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.Step">
+              <MappingFragment StoreEntitySet="Step">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

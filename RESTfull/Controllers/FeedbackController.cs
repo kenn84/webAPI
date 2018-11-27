@@ -13,11 +13,13 @@ namespace RESTfull.Controllers
 {
     public class FeedbackController : ApiController
     {
-        testoEntities db= new testoEntities();
+        mHealthDatabaseEntities db = new mHealthDatabaseEntities();
+        
 
         [HttpPost]
         public HttpResponseMessage AddClient(int height, DateTime date, int weight , int gender)
         {
+            
             try
             {
                 Client client = new Client();
@@ -41,7 +43,7 @@ namespace RESTfull.Controllers
             Client client = new Client();
             try
             {
-                client = db.Clients.ToList().Where((u) => { return u.id == id;  }).FirstOrDefault();
+                client = db.Clients.ToList().Where((u) => { return u.ID == id;  }).FirstOrDefault();
             } catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -62,7 +64,7 @@ namespace RESTfull.Controllers
         {
             Client client = new Client();
             var entry = db.Entry<Client>(client);
-            entry.Entity.id = id;
+            entry.Entity.ID = id;
             entry.Entity.height = height;
             entry.Entity.birthdate = date;
             entry.Entity.weight = weight;
@@ -86,7 +88,7 @@ namespace RESTfull.Controllers
         {
             try
             {
-                db.Clients.Remove(db.Clients.Where((u) => u.id == id).FirstOrDefault());
+                db.Clients.Remove(db.Clients.Where((u) => u.ID == id).FirstOrDefault());
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er slettet");
             }

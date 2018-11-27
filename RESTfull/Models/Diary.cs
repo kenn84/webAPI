@@ -12,14 +12,21 @@ namespace RESTfull.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class Diary
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Diary()
+        {
+            this.Pages = new HashSet<Page>();
+        }
+    
         public int id { get; set; }
-        public string cpr { get; set; }
-        public string password { get; set; }
-        public string salt { get; set; }
-        public int clientId { get; set; }
+        public string title { get; set; }
+        public System.DateTime date { get; set; }
+        public Nullable<int> clientId { get; set; }
     
         public virtual Client Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Page> Pages { get; set; }
     }
 }

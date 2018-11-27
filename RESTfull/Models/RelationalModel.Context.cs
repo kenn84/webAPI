@@ -13,10 +13,10 @@ namespace RESTfull.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class testoEntities : DbContext
+    public partial class mHealthDatabaseEntities : DbContext
     {
-        public testoEntities()
-            : base("name=testoEntities")
+        public mHealthDatabaseEntities()
+            : base("name=mHealthDatabaseEntities")
         {
         }
     
@@ -26,5 +26,12 @@ namespace RESTfull.Models
         }
     
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Diary> Diaries { get; set; }
+        public virtual DbSet<Dizziness> Dizzinesses { get; set; }
+        public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<PageExercise> PageExercises { get; set; }
+        public virtual DbSet<Step> Steps { get; set; }
     }
 }

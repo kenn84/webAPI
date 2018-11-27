@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1965a22009ac4dd59f7b16ec35b6382b" Name="Diagram1">
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Client" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Diary" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Dizziness" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Exercise" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Login" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Page" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.PageExercise" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Step" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Diary__clientId__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Dizziness__clien__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Exercise__client__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Login__clientId__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Step__clientId__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Page__diaryId__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__PageExerc__exerc__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__PageExerc__pageI__6A30C649" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

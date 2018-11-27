@@ -196,40 +196,43 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs">
-      <DependentUpon>Feedback.tt</DependentUpon>
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Feedback.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Feedback.Context.tt</DependentUpon>
+    <Compile Include="Models\Diary.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Feedback.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Feedback.tt</DependentUpon>
+    <Compile Include="Models\Dizziness.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Feedback.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Feedback.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Login.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Login.Context.tt</DependentUpon>
+    <Compile Include="Models\Exercise.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Login.cs">
-      <DependentUpon>Login.tt</DependentUpon>
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Login.Designer.cs">
+    <Compile Include="Models\Page.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PageExercise.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RelationalModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Login.edmx</DependentUpon>
+      <DependentUpon>RelationalModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Login1.cs">
+    <Compile Include="Models\RelationalModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Login.tt</DependentUpon>
+      <DependentUpon>RelationalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RelationalModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelationalModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Step.cs">
+      <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,25 +245,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Feedback.Context.tt">
+    <Content Include="Models\RelationalModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Feedback.Context.cs</LastGenOutput>
-      <DependentUpon>Feedback.edmx</DependentUpon>
+      <DependentUpon>RelationalModel.edmx</DependentUpon>
+      <LastGenOutput>RelationalModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Feedback.tt">
+    <Content Include="Models\RelationalModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Feedback.edmx</DependentUpon>
-      <LastGenOutput>Feedback.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Login.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Login.edmx</DependentUpon>
-      <LastGenOutput>Login.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Login.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Login.edmx</DependentUpon>
-      <LastGenOutput>Login1.cs</LastGenOutput>
+      <DependentUpon>RelationalModel.edmx</DependentUpon>
+      <LastGenOutput>RelationalModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -286,19 +279,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\Feedback.edmx">
+    <EntityDeploy Include="Models\RelationalModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Feedback.Designer.cs</LastGenOutput>
+      <LastGenOutput>RelationalModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Feedback.edmx.diagram">
-      <DependentUpon>Feedback.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\Login.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Login.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Login.edmx.diagram">
-      <DependentUpon>Login.edmx</DependentUpon>
+    <Content Include="Models\RelationalModel.edmx.diagram">
+      <DependentUpon>RelationalModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\WepApi12 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
