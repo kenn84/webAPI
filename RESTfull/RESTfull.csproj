@@ -161,7 +161,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig2.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -190,51 +189,51 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ExerciseController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Client.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatabaseModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatabaseModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatabaseModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Diary.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dizziness.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Exercise.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Login.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Page.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PageExercise.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RelationalModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelationalModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RelationalModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelationalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RelationalModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelationalModel.edmx</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Step.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -247,15 +246,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\RelationalModel.Context.tt">
+    <Content Include="Models\DatabaseModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RelationalModel.edmx</DependentUpon>
-      <LastGenOutput>RelationalModel.Context.cs</LastGenOutput>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
+      <LastGenOutput>DatabaseModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\RelationalModel.tt">
+    <Content Include="Models\DatabaseModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RelationalModel.edmx</DependentUpon>
-      <LastGenOutput>RelationalModel.cs</LastGenOutput>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
+      <LastGenOutput>DatabaseModels.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -281,12 +280,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\RelationalModel.edmx">
+    <EntityDeploy Include="Models\DatabaseModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RelationalModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DatabaseModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\RelationalModel.edmx.diagram">
-      <DependentUpon>RelationalModel.edmx</DependentUpon>
+    <Content Include="Models\DatabaseModels.edmx.diagram">
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\WepApi12 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

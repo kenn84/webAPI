@@ -12,13 +12,13 @@ namespace RESTfull.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class Account
     {
         public int id { get; set; }
         public string cpr { get; set; }
         public string password { get; set; }
         public string salt { get; set; }
-        public int clientId { get; set; }
+        public Nullable<int> clientId { get; set; }
     
         public virtual Client Client { get; set; }
     }
