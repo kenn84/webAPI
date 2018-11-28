@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESTfull.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -7,31 +8,31 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using RESTfull.Models; 
 
 namespace RESTfull.Controllers
 {
-    public class FeedbackController : ApiController
+    public class AccountController : ApiController
     {
         mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
-        
+
 
         [HttpPost]
-        public HttpResponseMessage AddClient(int height, DateTime date, int weight , int gender)
+        public HttpResponseMessage AddClient(string cpr , string password , string salt, int clientId)
         {
-            
+
             try
             {
-                Client client = new Client();
-                client.height = height;
-                client.birthdate = date;
-                client.weight = weight;
-                client.gender = gender;
-                db.Clients.Add(client);
+                Account account = new Account();
+                account.cpr = cpr;
+                account.password = password;
+                account.salt = salt;
+                account.clientId = clientId;
+                db.Accounts.Add(account);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt"); 
+                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.ToString());
             }
@@ -40,35 +41,36 @@ namespace RESTfull.Controllers
         [HttpGet]
         public IHttpActionResult GetClient(int id)
         {
-            Client client = new Client();
+            Account account = new Account();
             try
             {
-                client = db.Clients.ToList().Where((u) => { return u.ID == id;  }).FirstOrDefault();
-            } catch (Exception ex)
+                account= db.Accounts.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-            if (client == null)
+            if (account == null)
             {
                 return Ok("Ingen brugere fundet");
             }
             else
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(client);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(account);
                 return Json(json);
             }
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateClient(int id , int height , DateTime date, int weight , int gender)
+        public HttpResponseMessage UpdateClient(int id , string cpr , string password , string salt , int clientId)
         {
-            Client client = new Client();
-            var entry = db.Entry<Client>(client);
-            entry.Entity.ID = id;
-            entry.Entity.height = height;
-            entry.Entity.birthdate = date;
-            entry.Entity.weight = weight;
-            entry.Entity.gender = gender;
+            Account account = new Account();
+            var entry = db.Entry<Account>(account);
+            entry.Entity.id = id;
+            entry.Entity.cpr = cpr;
+            entry.Entity.password = password;
+            entry.Entity.salt = salt;
+            entry.Entity.clientId = clientId;
             entry.State = EntityState.Modified;
 
             try
@@ -82,13 +84,13 @@ namespace RESTfull.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
 
-            }
+        }
         [HttpDelete]
         public HttpResponseMessage DeleteClient(int id)
         {
             try
             {
-                db.Clients.Remove(db.Clients.Where((u) => u.ID == id).FirstOrDefault());
+                db.Accounts.Remove(db.Accounts.Where((u) => u.id == id).FirstOrDefault());
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er slettet");
             }
@@ -97,7 +99,7 @@ namespace RESTfull.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.ToString());
             }
-    
+
         }
     }
 }

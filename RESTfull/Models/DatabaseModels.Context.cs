@@ -13,10 +13,10 @@ namespace RESTfull.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class mHealthDatabaseEntities : DbContext
+    public partial class mHealthDatabaseEntities1 : DbContext
     {
-        public mHealthDatabaseEntities()
-            : base("name=mHealthDatabaseEntities")
+        public mHealthDatabaseEntities1()
+            : base("name=mHealthDatabaseEntities1")
         {
         }
     
@@ -25,11 +25,11 @@ namespace RESTfull.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Diary> Diaries { get; set; }
         public virtual DbSet<Dizziness> Dizzinesses { get; set; }
         public virtual DbSet<Exercise> Exercises { get; set; }
-        public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<PageExercise> PageExercises { get; set; }
         public virtual DbSet<Step> Steps { get; set; }
