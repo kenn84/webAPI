@@ -58,7 +58,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="diaryId" Type="int" />
         </EntityType>
         <EntityType Name="PageExercise">
@@ -285,7 +285,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="title" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="diaryId" Type="Int32" />
           <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__6477ECF3" FromRole="Page" ToRole="Diary" />
           <NavigationProperty Name="PageExercises" Relationship="Self.FK__PageExerc__pageI__6A30C649" FromRole="Page" ToRole="PageExercise" />
@@ -511,7 +511,7 @@
               <MappingFragment StoreEntitySet="Page">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="diaryId" ColumnName="diaryId" />
               </MappingFragment>
             </EntityTypeMapping>

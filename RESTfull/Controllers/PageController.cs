@@ -49,7 +49,7 @@ namespace RESTfull.Controllers
         {
             try
             {
-                Page page = new Page { date = date, title = description };
+                Page page = new Page { date = date, description = description };
                 db.Pages.Add(page);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "En ny side i dagbogen er blevet tilføjet");
@@ -66,7 +66,7 @@ namespace RESTfull.Controllers
         {
             Page page = new Page();
             var entry = db.Entry<Page>(page);
-            entry.Entity.title = description;
+            entry.Entity.description = description;
             entry.Entity.date = date;
             entry.State = EntityState.Modified;
 

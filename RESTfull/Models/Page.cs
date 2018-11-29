@@ -22,7 +22,7 @@ namespace RESTfull.Models
     
         public int id { get; set; }
         public System.DateTime date { get; set; }
-        public string title { get; set; }
+        public string description { get; set; }
         public Nullable<int> diaryId { get; set; }
     
         public virtual Diary Diary { get; set; }
