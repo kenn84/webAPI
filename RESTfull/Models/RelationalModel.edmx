@@ -74,18 +74,16 @@ warning 6013: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="count" Type="int" Nullable="false" />
           <Property Name="clientId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Account__id__70DDC3D8">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK__Diary__id__73BA3083">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
@@ -152,6 +150,18 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ID">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="mHealthDatabaseModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -160,10 +170,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySet Name="Exercise" EntityType="Self.Exercise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Step" EntityType="Self.Step" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Account__id__70DDC3D8" Association="Self.FK__Account__id__70DDC3D8">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Diary__id__73BA3083" Association="Self.FK__Diary__id__73BA3083">
             <End Role="Client" EntitySet="Client" />
             <End Role="Diary" EntitySet="Diary" />
@@ -184,6 +191,10 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
             <End Role="Client" EntitySet="Client" />
             <End Role="Step" EntitySet="Step" />
           </AssociationSet>
+          <AssociationSet Name="ID" Association="Self.ID">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -198,7 +209,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <Property Name="cpr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="salt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK__Account__id__70DDC3D8" FromRole="Account" ToRole="Client" />
+          <NavigationProperty Name="Client" Relationship="Self.ID" FromRole="Account" ToRole="Client" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -209,7 +220,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="weight" Type="Int32" Nullable="false" />
           <Property Name="gender" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__Account__id__70DDC3D8" FromRole="Client" ToRole="Account" />
+          <NavigationProperty Name="Account" Relationship="Self.ID" FromRole="Client" ToRole="Account" />
           <NavigationProperty Name="Diary" Relationship="Self.FK__Diary__id__73BA3083" FromRole="Client" ToRole="Diary" />
           <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__clien__5535A963" FromRole="Client" ToRole="Dizziness" />
           <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__client__797309D9" FromRole="Client" ToRole="Exercise" />
@@ -265,15 +276,25 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <Property Name="clientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK__Step__clientId__52593CB8" FromRole="Step" ToRole="Client" />
         </EntityType>
-        <Association Name="FK__Account__id__70DDC3D8">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="ID">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Account">
+            <Principal Role="Account">
               <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -337,7 +358,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="mHealthDatabaseEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="mHealthDatabaseEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Diaries" EntityType="Self.Diary" />
@@ -345,9 +366,10 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySet Name="Exercises" EntityType="Self.Exercise" />
           <EntitySet Name="Pages" EntityType="Self.Page" />
           <EntitySet Name="Steps" EntityType="Self.Step" />
-          <AssociationSet Name="FK__Account__id__70DDC3D8" Association="Self.FK__Account__id__70DDC3D8">
-            <End Role="Client" EntitySet="Clients" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="ID" Association="Self.ID">
             <End Role="Account" EntitySet="Accounts" />
+            <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
           <AssociationSet Name="FK__Diary__id__73BA3083" Association="Self.FK__Diary__id__73BA3083">
             <End Role="Client" EntitySet="Clients" />
@@ -375,7 +397,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="mHealthDatabaseModelStoreContainer" CdmEntityContainer="mHealthDatabaseEntities2">
+        <EntityContainerMapping StorageEntityContainer="mHealthDatabaseModelStoreContainer" CdmEntityContainer="mHealthDatabaseEntities1">
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="mHealthDatabaseModel.Account">
               <MappingFragment StoreEntitySet="Account">
@@ -443,6 +465,17 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="count" ColumnName="count" />
                 <ScalarProperty Name="clientId" ColumnName="clientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="mHealthDatabaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

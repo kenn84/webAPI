@@ -13,10 +13,10 @@ namespace RESTfull.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class mHealthDatabaseEntities2 : DbContext
+    public partial class mHealthDatabaseEntities1 : DbContext
     {
-        public mHealthDatabaseEntities2()
-            : base("name=mHealthDatabaseEntities2")
+        public mHealthDatabaseEntities1()
+            : base("name=mHealthDatabaseEntities1")
         {
         }
     
@@ -32,5 +32,6 @@ namespace RESTfull.Models
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Step> Steps { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

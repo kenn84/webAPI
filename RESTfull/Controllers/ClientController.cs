@@ -13,7 +13,7 @@ namespace RESTfull.Controllers
 {
     public class ClientController : ApiController
     {
-        mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
+        mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
         
 
         [HttpPost]

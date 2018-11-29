@@ -13,7 +13,7 @@ namespace RESTfull.Controllers
 {
     public class ExerciseController : ApiController
     {
-        private mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
+        private mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
 
         //// GET: api/Exercise
         //public IEnumerable<string> Get()
