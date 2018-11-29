@@ -13,7 +13,7 @@ namespace RESTfull.Controllers
 {
     public class DiaryController : ApiController
     {
-        private mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
+        private mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
 
         // GET: api/Diary
         public IEnumerable<string> Get()

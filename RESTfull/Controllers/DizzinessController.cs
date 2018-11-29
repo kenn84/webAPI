@@ -13,11 +13,11 @@ namespace RESTfull.Controllers
 {
     public class DizzinessController : ApiController
     {
-        mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
+        mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
 
 
         [HttpPost]
-        public HttpResponseMessage AddDizziness(int id, DateTime date, int level, int clientId)
+        public HttpResponseMessage AddDizziness(int id, DateTime date, int level)
         {
 
             try
@@ -26,7 +26,7 @@ namespace RESTfull.Controllers
                 dizz.id = id;
                 dizz.date = date;
                 dizz.level = level;
-                dizz.clientId = clientId; 
+                
                 db.Dizzinesses.Add(dizz);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Svimmelhed er gemt");
@@ -62,14 +62,14 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateClient(int id, int height, DateTime date, int level, int clientId)
+        public HttpResponseMessage UpdateDizziness(int id, int height, DateTime date, int level)
         {
             Dizziness dizz = new Dizziness();
             var entry = db.Entry<Dizziness>(dizz);
             entry.Entity.id= id;
             entry.Entity.date = date;
             entry.Entity.level = level;
-            entry.Entity.clientId = clientId; 
+          
            
             entry.State = EntityState.Modified;
 
@@ -86,7 +86,7 @@ namespace RESTfull.Controllers
 
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteClient(int id)
+        public HttpResponseMessage DeleteDizziness(int id)
         {
             try
             {

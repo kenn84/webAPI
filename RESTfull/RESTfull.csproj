@@ -193,7 +193,7 @@
     <Compile Include="Controllers\DiaryController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\DizzinessController.cs" />
-    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\StepController.cs" />
@@ -217,9 +217,6 @@
       <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Page.cs">
-      <DependentUpon>RelationalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PageExercise.cs">
       <DependentUpon>RelationalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RelationalModel.Context.cs">

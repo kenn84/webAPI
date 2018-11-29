@@ -13,11 +13,11 @@ namespace RESTfull.Controllers
 {
     public class StepController : ApiController
     {
-        mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
+        mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
 
 
         [HttpPost]
-        public HttpResponseMessage AddClient(int id, DateTime date, int count, int clientId)
+        public HttpResponseMessage AddStep(int id, DateTime date, int count)
         {
 
             try
@@ -26,7 +26,7 @@ namespace RESTfull.Controllers
                 step.id = id;
                 step.date = date;
                 step.count = count;
-                step.clientId = clientId;
+              
                 db.Steps.Add(step);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Skridt er gemt");
@@ -39,7 +39,7 @@ namespace RESTfull.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetClient(int id)
+        public IHttpActionResult GetStep(int id)
         {
             Step step = new Step();
             try
@@ -62,14 +62,14 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateClient(int id, DateTime date, int count, int clientId)
+        public HttpResponseMessage UpdateStep(int id, DateTime date, int count)
         {
             Step step = new Step();
             var entry = db.Entry<Step>(step);
             entry.Entity.id= id;
             entry.Entity.date = date;
             entry.Entity.count = count;
-            entry.Entity.clientId= clientId;
+       
         
 
             entry.State = EntityState.Modified;
@@ -87,7 +87,7 @@ namespace RESTfull.Controllers
 
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteClient(int id)
+        public HttpResponseMessage DeleteStep(int id)
         {
             try
             {

@@ -11,9 +11,9 @@ using RESTfull.Models;
 
 namespace RESTfull.Controllers
 {
-    public class FeedbackController : ApiController
+    public class ClientController : ApiController
     {
-        mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
+        mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
         
 
         [HttpPost]

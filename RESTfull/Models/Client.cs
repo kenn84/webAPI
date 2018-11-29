@@ -17,8 +17,6 @@ namespace RESTfull.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.Accounts = new HashSet<Account>();
-            this.Diaries = new HashSet<Diary>();
             this.Dizzinesses = new HashSet<Dizziness>();
             this.Exercises = new HashSet<Exercise>();
             this.Steps = new HashSet<Step>();
@@ -30,10 +28,8 @@ namespace RESTfull.Models
         public int weight { get; set; }
         public int gender { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Diary> Diaries { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual Diary Diary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dizziness> Dizzinesses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

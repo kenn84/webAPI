@@ -18,7 +18,6 @@ namespace RESTfull.Models
         public string cpr { get; set; }
         public string password { get; set; }
         public string salt { get; set; }
-        public Nullable<int> clientId { get; set; }
     
         public virtual Client Client { get; set; }
     }

@@ -13,11 +13,11 @@ namespace RESTfull.Controllers
 {
     public class AccountController : ApiController
     {
-        mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
+        mHealthDatabaseEntities2 db = new mHealthDatabaseEntities2();
 
 
         [HttpPost]
-        public HttpResponseMessage AddClient(string cpr , string password , string salt, int clientId)
+        public HttpResponseMessage AddAccount(string cpr , string password , string salt)
         {
 
             try
@@ -26,7 +26,7 @@ namespace RESTfull.Controllers
                 account.cpr = cpr;
                 account.password = password;
                 account.salt = salt;
-                account.clientId = clientId;
+              
                 db.Accounts.Add(account);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
@@ -39,7 +39,7 @@ namespace RESTfull.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetClient(int id)
+        public IHttpActionResult GetAccount(int id)
         {
             Account account = new Account();
             try
@@ -62,7 +62,7 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateClient(int id , string cpr , string password , string salt , int clientId)
+        public HttpResponseMessage UpdateAccount(int id , string cpr , string password , string salt)
         {
             Account account = new Account();
             var entry = db.Entry<Account>(account);
@@ -70,7 +70,7 @@ namespace RESTfull.Controllers
             entry.Entity.cpr = cpr;
             entry.Entity.password = password;
             entry.Entity.salt = salt;
-            entry.Entity.clientId = clientId;
+       
             entry.State = EntityState.Modified;
 
             try
@@ -86,7 +86,7 @@ namespace RESTfull.Controllers
 
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteClient(int id)
+        public HttpResponseMessage DeleteAccount(int id)
         {
             try
             {
