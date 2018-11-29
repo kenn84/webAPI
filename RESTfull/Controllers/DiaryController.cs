@@ -11,49 +11,49 @@ using System.Web.Http;
 
 namespace RESTfull.Controllers
 {
-    public class ExerciseController : ApiController
+    public class DiaryController : ApiController
     {
         private mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
 
-        //// GET: api/Exercise
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/Diary
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
         [HttpGet]
-        public IHttpActionResult GetExercise(int id)
+        public IHttpActionResult GetDiary(int id)
         {
-            Exercise exercise = new Exercise();
+            Diary diary = new Diary();
             try
             {
-                exercise = db.Exercises.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
+                diary = db.Diaries.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-            if (exercise == null)
+            if (diary == null)
             {
-                return Ok("Øvelsen findes ikke");
+                return Ok("Dagbogens findes ikke");
             }
             else
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(exercise);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(diary);
                 return Json(json);
             }
         }
 
         // POST: api/Exercise
         [HttpPost]
-        public HttpResponseMessage AddExercise(string title, string description)
+        public HttpResponseMessage AddDiary(DateTime date, string title)
         {
             try
             {
-                Exercise exercise = new Exercise { title = title, description = description };
-                db.Exercises.Add(exercise);
+                Diary diary = new Diary { date = date, title = title };
+                db.Diaries.Add(diary);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
+                return Request.CreateResponse(HttpStatusCode.Accepted, "En ny dagbog er blevet oprettet");
 
             }
             catch (Exception ex)
@@ -63,12 +63,12 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateExercise(int id, string title, string description)
+        public HttpResponseMessage UpdateDiary(int id, DateTime date, string title)
         {
-            Exercise exercise = new Exercise();
-            var entry = db.Entry<Exercise>(exercise);
+            Diary diary = new Diary();
+            var entry = db.Entry<Diary>(diary);
             entry.Entity.title = title;
-            entry.Entity.description = description;
+            entry.Entity.date = date;
             entry.State = EntityState.Modified;
 
             try
@@ -80,18 +80,17 @@ namespace RESTfull.Controllers
 
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
-            return Request.CreateResponse(HttpStatusCode.Accepted, "En øvelse er ændret");
+            return Request.CreateResponse(HttpStatusCode.Accepted, "En ændring i dagbogen er blevet lavet");
 
         }
 
-        [HttpDelete]
-        public HttpResponseMessage DeleteExercise(int id)
+        public HttpResponseMessage DeleteDiary(int id)
         {
             try
             {
-                db.Exercises.Remove(db.Exercises.Where((u) => u.id == id).FirstOrDefault());
+                db.Diaries.Remove(db.Diaries.Where((u) => u.id == id).FirstOrDefault());
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Øvelsen er fjernet fra systemet");
+                return Request.CreateResponse(HttpStatusCode.Accepted, "Dagbogen er blevet fjernet");
             }
             catch (Exception ex)
             {

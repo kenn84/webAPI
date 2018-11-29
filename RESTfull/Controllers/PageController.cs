@@ -11,49 +11,48 @@ using System.Web.Http;
 
 namespace RESTfull.Controllers
 {
-    public class ExerciseController : ApiController
+    public class PageController : ApiController
     {
         private mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
-
-        //// GET: api/Exercise
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/Page
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
         [HttpGet]
-        public IHttpActionResult GetExercise(int id)
+        public IHttpActionResult GetPage(int id)
         {
-            Exercise exercise = new Exercise();
+            Page page = new Page();
             try
             {
-                exercise = db.Exercises.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
+                page = db.Pages.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-            if (exercise == null)
+            if (page == null)
             {
-                return Ok("Øvelsen findes ikke");
+                return Ok("Dagbogens side findes ikke");
             }
             else
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(exercise);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(page);
                 return Json(json);
             }
         }
 
         // POST: api/Exercise
         [HttpPost]
-        public HttpResponseMessage AddExercise(string title, string description)
+        public HttpResponseMessage AddPage(DateTime date, string description)
         {
             try
             {
-                Exercise exercise = new Exercise { title = title, description = description };
-                db.Exercises.Add(exercise);
+                Page page = new Page { date = date, title = description };
+                db.Pages.Add(page);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
+                return Request.CreateResponse(HttpStatusCode.Accepted, "En ny side i dagbogen er blevet tilføjet");
 
             }
             catch (Exception ex)
@@ -63,12 +62,12 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateExercise(int id, string title, string description)
+        public HttpResponseMessage UpdatePage(int id, DateTime date, string description)
         {
-            Exercise exercise = new Exercise();
-            var entry = db.Entry<Exercise>(exercise);
-            entry.Entity.title = title;
-            entry.Entity.description = description;
+            Page page = new Page();
+            var entry = db.Entry<Page>(page);
+            entry.Entity.title = description;
+            entry.Entity.date = date;
             entry.State = EntityState.Modified;
 
             try
@@ -80,18 +79,17 @@ namespace RESTfull.Controllers
 
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
-            return Request.CreateResponse(HttpStatusCode.Accepted, "En øvelse er ændret");
+            return Request.CreateResponse(HttpStatusCode.Accepted, "En ændring i siden er blevet lavet");
 
         }
 
-        [HttpDelete]
-        public HttpResponseMessage DeleteExercise(int id)
+        public HttpResponseMessage DeletePage(int id)
         {
             try
             {
-                db.Exercises.Remove(db.Exercises.Where((u) => u.id == id).FirstOrDefault());
+                db.Pages.Remove(db.Pages.Where((u) => u.id == id).FirstOrDefault());
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Øvelsen er fjernet fra systemet");
+                return Request.CreateResponse(HttpStatusCode.Accepted, "En side fra dagbogen er blevet fjernet");
             }
             catch (Exception ex)
             {
