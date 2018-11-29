@@ -69,6 +69,7 @@ namespace RESTfull.Controllers
             entry.Entity.birthdate = date;
             entry.Entity.weight = weight;
             entry.Entity.gender = gender;
+           
             entry.State = EntityState.Modified;
 
             try
