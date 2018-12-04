@@ -29,12 +29,12 @@ namespace RESTfull.Controllers
               
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, account.cpr);
+                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er oprettet");
 
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.ToString());
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "Der er allerede en person med det cpr nr");
             }
         }
 
