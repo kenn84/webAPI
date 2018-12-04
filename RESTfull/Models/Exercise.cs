@@ -14,11 +14,19 @@ namespace RESTfull.Models
     
     public partial class Exercise
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Exercise()
+        {
+            this.Pages = new HashSet<Page>();
+        }
+    
         public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public Nullable<int> clientId { get; set; }
+        public long clientId { get; set; }
     
         public virtual Client Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Page> Pages { get; set; }
     }
 }

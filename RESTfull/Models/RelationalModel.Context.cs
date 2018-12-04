@@ -32,6 +32,5 @@ namespace RESTfull.Models
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Step> Steps { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

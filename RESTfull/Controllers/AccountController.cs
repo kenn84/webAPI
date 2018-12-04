@@ -17,7 +17,7 @@ namespace RESTfull.Controllers
 
 
         [HttpPost]
-        public HttpResponseMessage AddAccount(string cpr , string password , string salt)
+        public HttpResponseMessage AddAccount(long cpr , string password , string salt)
         {
 
             try
@@ -29,7 +29,7 @@ namespace RESTfull.Controllers
               
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er gemt");
+                return Request.CreateResponse(HttpStatusCode.Accepted, account.cpr);
 
             }
             catch (Exception ex)
@@ -39,12 +39,12 @@ namespace RESTfull.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAccount(int id)
+        public IHttpActionResult GetAccount(long cpr)
         {
             Account account = new Account();
             try
             {
-                account= db.Accounts.ToList().Where((u) => { return u.id == id; }).FirstOrDefault();
+                account= db.Accounts.ToList().Where((u) => { return u.cpr == cpr; }).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -62,11 +62,11 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateAccount(int id , string cpr , string password , string salt)
+        public HttpResponseMessage UpdateAccount( long cpr , string password , string salt)
         {
             Account account = new Account();
             var entry = db.Entry<Account>(account);
-            entry.Entity.id = id;
+           
             entry.Entity.cpr = cpr;
             entry.Entity.password = password;
             entry.Entity.salt = salt;
@@ -86,11 +86,11 @@ namespace RESTfull.Controllers
 
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteAccount(int id)
+        public HttpResponseMessage DeleteAccount(long cpr)
         {
             try
             {
-                db.Accounts.Remove(db.Accounts.Where((u) => u.id == id).FirstOrDefault());
+                db.Accounts.Remove(db.Accounts.Where((u) => u.cpr == cpr).FirstOrDefault());
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er slettet");
             }

@@ -17,7 +17,7 @@ namespace RESTfull.Models
         public int id { get; set; }
         public System.DateTime date { get; set; }
         public int level { get; set; }
-        public Nullable<int> clientId { get; set; }
+        public long clientId { get; set; }
     
         public virtual Client Client { get; set; }
     }

@@ -7,18 +7,17 @@
       <Schema Namespace="mHealthDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="cpr" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cpr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cpr" Type="bigint" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="salt" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="height" Type="int" Nullable="false" />
           <Property Name="birthdate" Type="datetime" Nullable="false" />
           <Property Name="weight" Type="int" Nullable="false" />
@@ -28,7 +27,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -37,9 +36,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="level" Type="int" Nullable="false" />
-          <Property Name="clientId" Type="int" />
+          <Property Name="clientId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Exercise">
           <Key>
@@ -47,8 +46,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="description" Type="varchar(max)" Nullable="false" />
-          <Property Name="clientId" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="clientId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Page">
           <Key>
@@ -56,72 +55,78 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="description" Type="varchar(max)" Nullable="false" />
-          <Property Name="diaryId" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="diaryId" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PageExercise">
-          <Property Name="pageId" Type="int" />
-          <Property Name="exerciseId" Type="int" />
-        </EntityType>-->
+          <Key>
+            <PropertyRef Name="pageId" />
+            <PropertyRef Name="exerciseId" />
+          </Key>
+          <Property Name="pageId" Type="int" Nullable="false" />
+          <Property Name="exerciseId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Step">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="count" Type="int" Nullable="false" />
-          <Property Name="clientId" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <Association Name="FK__Diary__id__73BA3083">
+        <Association Name="FK__Client__id__32AB8735">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="cpr" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diary__id__3B40CD36">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Diary">
               <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dizziness__clien__5535A963">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+        <Association Name="FK__Dizziness__clien__3864608B">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Dizziness">
               <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exercise__client__797309D9">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+        <Association Name="FK__Exercise__client__40F9A68C">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Exercise">
               <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Page__diaryId__76969D2E">
-          <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
+        <Association Name="FK__Page__diaryId__3E1D39E1">
+          <End Role="Diary" Type="Self.Diary" Multiplicity="1" />
           <End Role="Page" Type="Self.Page" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Diary">
@@ -132,33 +137,39 @@ warning 6013: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a relationship, but cannot be found.
-        <Association Name="FK__PageExerc__exerc__7C4F7684" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a relationship, but cannot be found.
-        <Association Name="FK__PageExerc__pageI__7B5B524B" />-->
-        <Association Name="FK__Step__clientId__52593CB8">
+        <Association Name="FK__PageExerc__exerc__43D61337">
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exercise">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="exerciseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageExerc__pageI__42E1EEFE">
+          <End Role="Page" Type="Self.Page" Multiplicity="1" />
+          <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Page">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PageExercise">
+              <PropertyRef Name="pageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Step__clientId__3587F3E0">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Step" Type="Self.Step" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Step">
               <PropertyRef Name="clientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ID">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -170,30 +181,43 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySet Name="Exercise" EntityType="Self.Exercise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Page" EntityType="Self.Page" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Step" EntityType="Self.Step" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Diary__id__73BA3083" Association="Self.FK__Diary__id__73BA3083">
+          <EntitySet Name="PageExercise" EntityType="Self.PageExercise" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PageExercise].[pageId] AS [pageId], 
+    [PageExercise].[exerciseId] AS [exerciseId]
+    FROM [dbo].[PageExercise] AS [PageExercise]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Client__id__32AB8735" Association="Self.FK__Client__id__32AB8735">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diary__id__3B40CD36" Association="Self.FK__Diary__id__3B40CD36">
             <End Role="Client" EntitySet="Client" />
             <End Role="Diary" EntitySet="Diary" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dizziness__clien__5535A963" Association="Self.FK__Dizziness__clien__5535A963">
+          <AssociationSet Name="FK__Dizziness__clien__3864608B" Association="Self.FK__Dizziness__clien__3864608B">
             <End Role="Client" EntitySet="Client" />
             <End Role="Dizziness" EntitySet="Dizziness" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exercise__client__797309D9" Association="Self.FK__Exercise__client__797309D9">
+          <AssociationSet Name="FK__Exercise__client__40F9A68C" Association="Self.FK__Exercise__client__40F9A68C">
             <End Role="Client" EntitySet="Client" />
             <End Role="Exercise" EntitySet="Exercise" />
           </AssociationSet>
-          <AssociationSet Name="FK__Page__diaryId__76969D2E" Association="Self.FK__Page__diaryId__76969D2E">
+          <AssociationSet Name="FK__Page__diaryId__3E1D39E1" Association="Self.FK__Page__diaryId__3E1D39E1">
             <End Role="Diary" EntitySet="Diary" />
             <End Role="Page" EntitySet="Page" />
           </AssociationSet>
-          <AssociationSet Name="FK__Step__clientId__52593CB8" Association="Self.FK__Step__clientId__52593CB8">
+          <AssociationSet Name="FK__PageExerc__exerc__43D61337" Association="Self.FK__PageExerc__exerc__43D61337">
+            <End Role="Exercise" EntitySet="Exercise" />
+            <End Role="PageExercise" EntitySet="PageExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageExerc__pageI__42E1EEFE" Association="Self.FK__PageExerc__pageI__42E1EEFE">
+            <End Role="Page" EntitySet="Page" />
+            <End Role="PageExercise" EntitySet="PageExercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Step__clientId__3587F3E0" Association="Self.FK__Step__clientId__3587F3E0">
             <End Role="Client" EntitySet="Client" />
             <End Role="Step" EntitySet="Step" />
-          </AssociationSet>
-          <AssociationSet Name="ID" Association="Self.ID">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Client" EntitySet="Client" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -203,48 +227,47 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
       <Schema Namespace="mHealthDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="cpr" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cpr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpr" Type="Int64" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="salt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.ID" FromRole="Account" ToRole="Client" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Client__id__32AB8735" FromRole="Account" ToRole="Client" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="height" Type="Int32" Nullable="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="weight" Type="Int32" Nullable="false" />
           <Property Name="gender" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.ID" FromRole="Client" ToRole="Account" />
-          <NavigationProperty Name="Diary" Relationship="Self.FK__Diary__id__73BA3083" FromRole="Client" ToRole="Diary" />
-          <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__clien__5535A963" FromRole="Client" ToRole="Dizziness" />
-          <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__client__797309D9" FromRole="Client" ToRole="Exercise" />
-          <NavigationProperty Name="Steps" Relationship="Self.FK__Step__clientId__52593CB8" FromRole="Client" ToRole="Step" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Client__id__32AB8735" FromRole="Client" ToRole="Account" />
+          <NavigationProperty Name="Diary" Relationship="Self.FK__Diary__id__3B40CD36" FromRole="Client" ToRole="Diary" />
+          <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__clien__3864608B" FromRole="Client" ToRole="Dizziness" />
+          <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__client__40F9A68C" FromRole="Client" ToRole="Exercise" />
+          <NavigationProperty Name="Steps" Relationship="Self.FK__Step__clientId__3587F3E0" FromRole="Client" ToRole="Step" />
         </EntityType>
         <EntityType Name="Diary">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK__Diary__id__73BA3083" FromRole="Diary" ToRole="Client" />
-          <NavigationProperty Name="Pages" Relationship="Self.FK__Page__diaryId__76969D2E" FromRole="Diary" ToRole="Page" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Diary__id__3B40CD36" FromRole="Diary" ToRole="Client" />
+          <NavigationProperty Name="Pages" Relationship="Self.FK__Page__diaryId__3E1D39E1" FromRole="Diary" ToRole="Page" />
         </EntityType>
         <EntityType Name="Dizziness">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="level" Type="Int32" Nullable="false" />
-          <Property Name="clientId" Type="Int32" />
-          <NavigationProperty Name="Client" Relationship="Self.FK__Dizziness__clien__5535A963" FromRole="Dizziness" ToRole="Client" />
+          <Property Name="clientId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Dizziness__clien__3864608B" FromRole="Dizziness" ToRole="Client" />
         </EntityType>
         <EntityType Name="Exercise">
           <Key>
@@ -252,9 +275,10 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="clientId" Type="Int32" />
-          <NavigationProperty Name="Client" Relationship="Self.FK__Exercise__client__797309D9" FromRole="Exercise" ToRole="Client" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clientId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Exercise__client__40F9A68C" FromRole="Exercise" ToRole="Client" />
+          <NavigationProperty Name="Pages" Relationship="Self.PageExercise" FromRole="Exercise" ToRole="Page" />
         </EntityType>
         <EntityType Name="Page">
           <Key>
@@ -262,92 +286,83 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="diaryId" Type="Int32" />
-          <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__76969D2E" FromRole="Page" ToRole="Diary" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="diaryId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__3E1D39E1" FromRole="Page" ToRole="Diary" />
+          <NavigationProperty Name="Exercises" Relationship="Self.PageExercise" FromRole="Page" ToRole="Exercise" />
         </EntityType>
         <EntityType Name="Step">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="count" Type="Int32" Nullable="false" />
-          <Property Name="clientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK__Step__clientId__52593CB8" FromRole="Step" ToRole="Client" />
+          <Property Name="clientId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Step__clientId__3587F3E0" FromRole="Step" ToRole="Client" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="ID">
+        <Association Name="FK__Client__id__32AB8735">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Account">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="cpr" />
             </Principal>
             <Dependent Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Diary__id__73BA3083">
+        <Association Name="FK__Diary__id__3B40CD36">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Diary">
               <PropertyRef Name="id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dizziness__clien__5535A963">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+        <Association Name="FK__Dizziness__clien__3864608B">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Dizziness">
               <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exercise__client__797309D9">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+        <Association Name="FK__Exercise__client__40F9A68C">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Exercise">
               <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Step__clientId__52593CB8">
+        <Association Name="FK__Step__clientId__3587F3E0">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Step" Type="Self.Step" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Step">
               <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Page__diaryId__76969D2E">
-          <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
+        <Association Name="FK__Page__diaryId__3E1D39E1">
+          <End Role="Diary" Type="Self.Diary" Multiplicity="1" />
           <End Role="Page" Type="Self.Page" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Diary">
@@ -358,6 +373,10 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="PageExercise">
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
+          <End Role="Page" Type="Self.Page" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="mHealthDatabaseEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
@@ -366,29 +385,32 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySet Name="Exercises" EntityType="Self.Exercise" />
           <EntitySet Name="Pages" EntityType="Self.Page" />
           <EntitySet Name="Steps" EntityType="Self.Step" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="ID" Association="Self.ID">
+          <AssociationSet Name="FK__Client__id__32AB8735" Association="Self.FK__Client__id__32AB8735">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK__Diary__id__73BA3083" Association="Self.FK__Diary__id__73BA3083">
+          <AssociationSet Name="FK__Diary__id__3B40CD36" Association="Self.FK__Diary__id__3B40CD36">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Diary" EntitySet="Diaries" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dizziness__clien__5535A963" Association="Self.FK__Dizziness__clien__5535A963">
+          <AssociationSet Name="FK__Dizziness__clien__3864608B" Association="Self.FK__Dizziness__clien__3864608B">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Dizziness" EntitySet="Dizzinesses" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exercise__client__797309D9" Association="Self.FK__Exercise__client__797309D9">
+          <AssociationSet Name="FK__Exercise__client__40F9A68C" Association="Self.FK__Exercise__client__40F9A68C">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Exercise" EntitySet="Exercises" />
           </AssociationSet>
-          <AssociationSet Name="FK__Step__clientId__52593CB8" Association="Self.FK__Step__clientId__52593CB8">
+          <AssociationSet Name="FK__Step__clientId__3587F3E0" Association="Self.FK__Step__clientId__3587F3E0">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Step" EntitySet="Steps" />
           </AssociationSet>
-          <AssociationSet Name="FK__Page__diaryId__76969D2E" Association="Self.FK__Page__diaryId__76969D2E">
+          <AssociationSet Name="FK__Page__diaryId__3E1D39E1" Association="Self.FK__Page__diaryId__3E1D39E1">
             <End Role="Diary" EntitySet="Diaries" />
+            <End Role="Page" EntitySet="Pages" />
+          </AssociationSet>
+          <AssociationSet Name="PageExercise" Association="Self.PageExercise">
+            <End Role="Exercise" EntitySet="Exercises" />
             <End Role="Page" EntitySet="Pages" />
           </AssociationSet>
         </EntityContainer>
@@ -401,7 +423,6 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="mHealthDatabaseModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="cpr" ColumnName="cpr" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="salt" ColumnName="salt" />
@@ -411,7 +432,7 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="mHealthDatabaseModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="height" ColumnName="height" />
                 <ScalarProperty Name="birthdate" ColumnName="birthdate" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
@@ -468,17 +489,14 @@ error 6004: The table 'mHealthDatabase.dbo.PageExercise' is referenced by a rela
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="mHealthDatabaseModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="PageExercise" TypeName="mHealthDatabaseModel.PageExercise" StoreEntitySet="PageExercise">
+            <EndProperty Name="Exercise">
+              <ScalarProperty Name="id" ColumnName="exerciseId" />
+            </EndProperty>
+            <EndProperty Name="Page">
+              <ScalarProperty Name="id" ColumnName="pageId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

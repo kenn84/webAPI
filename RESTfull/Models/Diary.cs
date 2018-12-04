@@ -20,7 +20,7 @@ namespace RESTfull.Models
             this.Pages = new HashSet<Page>();
         }
     
-        public int id { get; set; }
+        public long id { get; set; }
         public System.DateTime date { get; set; }
         public string title { get; set; }
     

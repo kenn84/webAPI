@@ -22,7 +22,7 @@ namespace RESTfull.Models
             this.Steps = new HashSet<Step>();
         }
     
-        public int ID { get; set; }
+        public long id { get; set; }
         public int height { get; set; }
         public System.DateTime birthdate { get; set; }
         public int weight { get; set; }

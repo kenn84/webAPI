@@ -14,8 +14,7 @@ namespace RESTfull.Models
     
     public partial class Account
     {
-        public int id { get; set; }
-        public string cpr { get; set; }
+        public long cpr { get; set; }
         public string password { get; set; }
         public string salt { get; set; }
     
