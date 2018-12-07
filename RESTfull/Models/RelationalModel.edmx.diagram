@@ -4,20 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cc816dc53c0048e3b40bf1f10a6ac0d6" Name="Diagram1">
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Account" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Client" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Diary" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Dizziness" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Exercise" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Page" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mHealthDatabaseModel.Step" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Client__id__32AB8735" ManuallyRouted="false" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Diary__id__3B40CD36" ManuallyRouted="false" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Dizziness__clien__3864608B" ManuallyRouted="false" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Exercise__client__40F9A68C" ManuallyRouted="false" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Step__clientId__3587F3E0" ManuallyRouted="false" />
-        <AssociationConnector Association="mHealthDatabaseModel.FK__Page__diaryId__3E1D39E1" ManuallyRouted="false" />
+      <Diagram DiagramId="022c8b04b83946fe9adc7af2da567e74" Name="Diagram1">
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Diary" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Dizziness" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Exercise" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Page" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.Step" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mHealthDatabaseModel.User" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Diary__id__671F4F74" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Page__diaryId__69FBBC1F" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Dizziness__UserI__6442E2C9" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Exercise__UserId__6CD828CA" ManuallyRouted="false" />
+        <AssociationConnector Association="mHealthDatabaseModel.FK__Step__UserId__6166761E" ManuallyRouted="false" />
         <AssociationConnector Association="mHealthDatabaseModel.PageExercise" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

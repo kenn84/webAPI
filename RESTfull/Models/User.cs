@@ -12,23 +12,24 @@ namespace RESTfull.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public User()
         {
             this.Dizzinesses = new HashSet<Dizziness>();
             this.Exercises = new HashSet<Exercise>();
             this.Steps = new HashSet<Step>();
         }
     
-        public long id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string salt { get; set; }
         public int height { get; set; }
         public System.DateTime birthdate { get; set; }
         public int weight { get; set; }
         public int gender { get; set; }
     
-        public virtual Account Account { get; set; }
         public virtual Diary Diary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dizziness> Dizzinesses { get; set; }

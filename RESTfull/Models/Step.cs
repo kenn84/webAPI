@@ -17,8 +17,8 @@ namespace RESTfull.Models
         public int id { get; set; }
         public System.DateTime date { get; set; }
         public int count { get; set; }
-        public long clientId { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Client Client { get; set; }
+        public virtual User User { get; set; }
     }
 }

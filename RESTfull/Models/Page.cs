@@ -23,7 +23,7 @@ namespace RESTfull.Models
         public int id { get; set; }
         public System.DateTime date { get; set; }
         public string description { get; set; }
-        public long diaryId { get; set; }
+        public string diaryId { get; set; }
     
         public virtual Diary Diary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

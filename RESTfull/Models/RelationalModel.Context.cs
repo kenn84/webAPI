@@ -25,12 +25,11 @@ namespace RESTfull.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Diary> Diaries { get; set; }
         public virtual DbSet<Dizziness> Dizzinesses { get; set; }
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Step> Steps { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

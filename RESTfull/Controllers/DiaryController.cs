@@ -22,7 +22,7 @@ namespace RESTfull.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetDiary(int id)
+        public IHttpActionResult GetDiary(string id)
         {
             Diary diary = new Diary();
             try
@@ -84,7 +84,7 @@ namespace RESTfull.Controllers
 
         }
 
-        public HttpResponseMessage DeleteDiary(int id)
+        public HttpResponseMessage DeleteDiary(string id)
         {
             try
             {
