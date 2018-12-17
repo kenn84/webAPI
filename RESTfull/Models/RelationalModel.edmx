@@ -71,7 +71,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="weight" Type="int" Nullable="false" />
           <Property Name="gender" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Diary__id__671F4F74">
+        <Association Name="FK__Diary__id__2057CCD0">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -83,7 +83,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dizziness__UserI__6442E2C9">
+        <Association Name="FK__Dizziness__UserI__1D7B6025">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
           <ReferentialConstraint>
@@ -95,7 +95,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exercise__UserId__6CD828CA">
+        <Association Name="FK__Exercise__UserId__2610A626">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
           <ReferentialConstraint>
@@ -107,7 +107,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Page__diaryId__69FBBC1F">
+        <Association Name="FK__Page__diaryId__2334397B">
           <End Role="Diary" Type="Self.Diary" Multiplicity="1" />
           <End Role="Page" Type="Self.Page" Multiplicity="*" />
           <ReferentialConstraint>
@@ -119,7 +119,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PageExerc__exerc__6FB49575">
+        <Association Name="FK__PageExerc__exerc__28ED12D1">
           <End Role="Exercise" Type="Self.Exercise" Multiplicity="1" />
           <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
           <ReferentialConstraint>
@@ -131,7 +131,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PageExerc__pageI__6EC0713C">
+        <Association Name="FK__PageExerc__pageI__27F8EE98">
           <End Role="Page" Type="Self.Page" Multiplicity="1" />
           <End Role="PageExercise" Type="Self.PageExercise" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,7 +143,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Step__UserId__6166761E">
+        <Association Name="FK__Step__UserId__1A9EF37A">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Step" Type="Self.Step" Multiplicity="*" />
           <ReferentialConstraint>
@@ -168,31 +168,31 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
     [PageExercise].[exerciseId] AS [exerciseId]
     FROM [dbo].[PageExercise] AS [PageExercise]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Diary__id__671F4F74" Association="Self.FK__Diary__id__671F4F74">
+          <AssociationSet Name="FK__Diary__id__2057CCD0" Association="Self.FK__Diary__id__2057CCD0">
             <End Role="User" EntitySet="User" />
             <End Role="Diary" EntitySet="Diary" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dizziness__UserI__6442E2C9" Association="Self.FK__Dizziness__UserI__6442E2C9">
+          <AssociationSet Name="FK__Dizziness__UserI__1D7B6025" Association="Self.FK__Dizziness__UserI__1D7B6025">
             <End Role="User" EntitySet="User" />
             <End Role="Dizziness" EntitySet="Dizziness" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exercise__UserId__6CD828CA" Association="Self.FK__Exercise__UserId__6CD828CA">
+          <AssociationSet Name="FK__Exercise__UserId__2610A626" Association="Self.FK__Exercise__UserId__2610A626">
             <End Role="User" EntitySet="User" />
             <End Role="Exercise" EntitySet="Exercise" />
           </AssociationSet>
-          <AssociationSet Name="FK__Page__diaryId__69FBBC1F" Association="Self.FK__Page__diaryId__69FBBC1F">
+          <AssociationSet Name="FK__Page__diaryId__2334397B" Association="Self.FK__Page__diaryId__2334397B">
             <End Role="Diary" EntitySet="Diary" />
             <End Role="Page" EntitySet="Page" />
           </AssociationSet>
-          <AssociationSet Name="FK__PageExerc__exerc__6FB49575" Association="Self.FK__PageExerc__exerc__6FB49575">
+          <AssociationSet Name="FK__PageExerc__exerc__28ED12D1" Association="Self.FK__PageExerc__exerc__28ED12D1">
             <End Role="Exercise" EntitySet="Exercise" />
             <End Role="PageExercise" EntitySet="PageExercise" />
           </AssociationSet>
-          <AssociationSet Name="FK__PageExerc__pageI__6EC0713C" Association="Self.FK__PageExerc__pageI__6EC0713C">
+          <AssociationSet Name="FK__PageExerc__pageI__27F8EE98" Association="Self.FK__PageExerc__pageI__27F8EE98">
             <End Role="Page" EntitySet="Page" />
             <End Role="PageExercise" EntitySet="PageExercise" />
           </AssociationSet>
-          <AssociationSet Name="FK__Step__UserId__6166761E" Association="Self.FK__Step__UserId__6166761E">
+          <AssociationSet Name="FK__Step__UserId__1A9EF37A" Association="Self.FK__Step__UserId__1A9EF37A">
             <End Role="User" EntitySet="User" />
             <End Role="Step" EntitySet="Step" />
           </AssociationSet>
@@ -209,8 +209,8 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Diary__id__671F4F74" FromRole="Diary" ToRole="User" />
-          <NavigationProperty Name="Pages" Relationship="Self.FK__Page__diaryId__69FBBC1F" FromRole="Diary" ToRole="Page" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Diary__id__2057CCD0" FromRole="Diary" ToRole="User" />
+          <NavigationProperty Name="Pages" Relationship="Self.FK__Page__diaryId__2334397B" FromRole="Diary" ToRole="Page" />
         </EntityType>
         <EntityType Name="Dizziness">
           <Key>
@@ -220,7 +220,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="level" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Dizziness__UserI__6442E2C9" FromRole="Dizziness" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Dizziness__UserI__1D7B6025" FromRole="Dizziness" ToRole="User" />
         </EntityType>
         <EntityType Name="Exercise">
           <Key>
@@ -230,7 +230,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Exercise__UserId__6CD828CA" FromRole="Exercise" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Exercise__UserId__2610A626" FromRole="Exercise" ToRole="User" />
           <NavigationProperty Name="Pages" Relationship="Self.PageExercise" FromRole="Exercise" ToRole="Page" />
         </EntityType>
         <EntityType Name="Page">
@@ -241,7 +241,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="diaryId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__69FBBC1F" FromRole="Page" ToRole="Diary" />
+          <NavigationProperty Name="Diary" Relationship="Self.FK__Page__diaryId__2334397B" FromRole="Page" ToRole="Diary" />
           <NavigationProperty Name="Exercises" Relationship="Self.PageExercise" FromRole="Page" ToRole="Exercise" />
         </EntityType>
         <EntityType Name="Step">
@@ -252,7 +252,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="count" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Step__UserId__6166761E" FromRole="Step" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Step__UserId__1A9EF37A" FromRole="Step" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -265,12 +265,12 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="weight" Type="Int32" Nullable="false" />
           <Property Name="gender" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Diary" Relationship="Self.FK__Diary__id__671F4F74" FromRole="User" ToRole="Diary" />
-          <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__UserI__6442E2C9" FromRole="User" ToRole="Dizziness" />
-          <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__UserId__6CD828CA" FromRole="User" ToRole="Exercise" />
-          <NavigationProperty Name="Steps" Relationship="Self.FK__Step__UserId__6166761E" FromRole="User" ToRole="Step" />
+          <NavigationProperty Name="Diary" Relationship="Self.FK__Diary__id__2057CCD0" FromRole="User" ToRole="Diary" />
+          <NavigationProperty Name="Dizzinesses" Relationship="Self.FK__Dizziness__UserI__1D7B6025" FromRole="User" ToRole="Dizziness" />
+          <NavigationProperty Name="Exercises" Relationship="Self.FK__Exercise__UserId__2610A626" FromRole="User" ToRole="Exercise" />
+          <NavigationProperty Name="Steps" Relationship="Self.FK__Step__UserId__1A9EF37A" FromRole="User" ToRole="Step" />
         </EntityType>
-        <Association Name="FK__Diary__id__671F4F74">
+        <Association Name="FK__Diary__id__2057CCD0">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Diary" Type="Self.Diary" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -282,7 +282,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Page__diaryId__69FBBC1F">
+        <Association Name="FK__Page__diaryId__2334397B">
           <End Role="Diary" Type="Self.Diary" Multiplicity="1" />
           <End Role="Page" Type="Self.Page" Multiplicity="*" />
           <ReferentialConstraint>
@@ -294,7 +294,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Dizziness__UserI__6442E2C9">
+        <Association Name="FK__Dizziness__UserI__1D7B6025">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Dizziness" Type="Self.Dizziness" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +306,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exercise__UserId__6CD828CA">
+        <Association Name="FK__Exercise__UserId__2610A626">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +318,7 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Step__UserId__6166761E">
+        <Association Name="FK__Step__UserId__1A9EF37A">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Step" Type="Self.Step" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,23 +341,23 @@ warning 6002: The table/view 'mHealthDatabase.dbo.PageExercise' does not have a 
           <EntitySet Name="Pages" EntityType="Self.Page" />
           <EntitySet Name="Steps" EntityType="Self.Step" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Diary__id__671F4F74" Association="Self.FK__Diary__id__671F4F74">
+          <AssociationSet Name="FK__Diary__id__2057CCD0" Association="Self.FK__Diary__id__2057CCD0">
             <End Role="User" EntitySet="Users" />
             <End Role="Diary" EntitySet="Diaries" />
           </AssociationSet>
-          <AssociationSet Name="FK__Page__diaryId__69FBBC1F" Association="Self.FK__Page__diaryId__69FBBC1F">
+          <AssociationSet Name="FK__Page__diaryId__2334397B" Association="Self.FK__Page__diaryId__2334397B">
             <End Role="Diary" EntitySet="Diaries" />
             <End Role="Page" EntitySet="Pages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Dizziness__UserI__6442E2C9" Association="Self.FK__Dizziness__UserI__6442E2C9">
+          <AssociationSet Name="FK__Dizziness__UserI__1D7B6025" Association="Self.FK__Dizziness__UserI__1D7B6025">
             <End Role="User" EntitySet="Users" />
             <End Role="Dizziness" EntitySet="Dizzinesses" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exercise__UserId__6CD828CA" Association="Self.FK__Exercise__UserId__6CD828CA">
+          <AssociationSet Name="FK__Exercise__UserId__2610A626" Association="Self.FK__Exercise__UserId__2610A626">
             <End Role="User" EntitySet="Users" />
             <End Role="Exercise" EntitySet="Exercises" />
           </AssociationSet>
-          <AssociationSet Name="FK__Step__UserId__6166761E" Association="Self.FK__Step__UserId__6166761E">
+          <AssociationSet Name="FK__Step__UserId__1A9EF37A" Association="Self.FK__Step__UserId__1A9EF37A">
             <End Role="User" EntitySet="Users" />
             <End Role="Step" EntitySet="Steps" />
           </AssociationSet>

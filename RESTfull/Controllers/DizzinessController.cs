@@ -17,13 +17,13 @@ namespace RESTfull.Controllers
 
 
         [HttpPost]
-        public HttpResponseMessage AddDizziness(int id, DateTime date, int level)
+        public HttpResponseMessage AddDizziness(string userid, DateTime date, int level)
         {
 
             try
             {
                 Dizziness dizz = new Dizziness();
-                dizz.id = id;
+                dizz.UserId = userid;
                 dizz.date = date;
                 dizz.level = level;
                 
@@ -62,11 +62,11 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateDizziness(int id, int height, DateTime date, int level)
+        public HttpResponseMessage UpdateDizziness(string userid, DateTime date, int level)
         {
             Dizziness dizz = new Dizziness();
             var entry = db.Entry<Dizziness>(dizz);
-            entry.Entity.id= id;
+            entry.Entity.UserId = userid;
             entry.Entity.date = date;
             entry.Entity.level = level;
           

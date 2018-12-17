@@ -18,55 +18,45 @@ namespace RESTfull.Controllers
         
 
         [HttpPost]
-        public HttpResponseMessage AddAccount(string username, string password, string salt , int height , int weight, DateTime birthdate , int gender)
+        public HttpResponseMessage AddUser(string username, string password, string salt , int height , DateTime birthdate, int weight , int gender)
         {
-
-            try
+            bool userAlreadyExists = db.Users.Any(x => x.username == username);
+            if (userAlreadyExists != true)
             {
-                User user = new User();
-                user.username = username;
-                user.password = password;
-                user.salt = salt;
-                user.height = height;
-                user.weight = weight;
-                user.birthdate = birthdate;
-                user.gender = gender; 
-
-                db.Users.Add(user);
-                db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er oprettet");
-
-            }
-            catch (SqlException ex)
+                try
             {
-                if (ex.Number == 2627)
-                {
-                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "Bruger eksistrer allerede");
-
+                    User user = new User();
+                    user.username = username;
+                    user.password = password;
+                    user.salt = salt;
+                    user.height = height;
+                    user.weight = weight;
+                    user.birthdate = birthdate;
+                    user.gender = gender;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.Accepted, "Brugeren er oprettet");
                 }
-                else
-
+                catch (Exception ex)
                 {
-
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.ToString());
                 }
-                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.ToString());
             }
-
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden, "Der findes allerede en med det brugernavn");
+            }
         }
 
         [HttpGet]
-        public IHttpActionResult GetAccount(string username)
+        public IHttpActionResult GetUser(string username)
         {
             User user = new User();
             try
             {
                 user = db.Users.ToList().Where((u) => u.username == username).FirstOrDefault();
+                
            
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -84,7 +74,7 @@ namespace RESTfull.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateAccount(string username, string password, string salt, int height, int weight, DateTime birthdate, int gender)
+        public HttpResponseMessage UpdateUser(string username, string password, string salt, int height, int weight, DateTime birthdate, int gender)
         {
             User user = new User();
             var entry = db.Entry<User>(user);
@@ -113,7 +103,7 @@ namespace RESTfull.Controllers
 
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteAccount(string username)
+        public HttpResponseMessage DeleteUser(string username)
         {
             try
             {

@@ -15,10 +15,7 @@ namespace RESTfull.Controllers
     {
         private mHealthDatabaseEntities1 db = new mHealthDatabaseEntities1();
         // GET: api/Page
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+  
 
         [HttpGet]
         public IHttpActionResult GetPage(int id)
